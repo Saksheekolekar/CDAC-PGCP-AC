@@ -1,4 +1,4 @@
-#include "PaySlip.h"
+ #include "Payslip.h"
 
 int main()
 {
@@ -6,6 +6,7 @@ int main()
 
     cout<<"Enter Employee Details\n";
     p.accept();
+    
 
     cout<<"\nEmployee Payslip\n";
     p.display();
