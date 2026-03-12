@@ -11,6 +11,7 @@ double power(double n,int p=2)
     return result;
 }
 
+
 int main()
 {
     double num;
