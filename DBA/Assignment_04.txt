@@ -1,0 +1,128 @@
+
+
+
+1)  Display the oldest employee in the deptno 30.
+
+SELECT * FROM emp WHERE deptno = 30 AND hiredate = ( SELECT
+MIN(hiredate) FROM emp WHERE deptno = 30 );
+
+2)  Display the records of employees who earn salary less than the
+    average salary of job SALESMAN. The records of SALESMAN should be
+    excluded from the report.
+
+SELECT * FROM emp WHERE sal < ( SELECT AVG(sal) FROM emp WHERE job =
+‘SALESMAN’ ) AND job <> ‘SALESMAN’;
+
+3)  Display the top earner’s records from the job CLERK.
+
+SELECT * FROM emp WHERE job = ‘CLERK’ AND sal = ( SELECT MAX(sal) FROM
+emp WHERE job = ‘CLERK’ );
+
+4)  Display the records of lowest earners who joined in the year 81.
+
+SELECT * FROM emp WHERE EXTRACT(YEAR FROM hiredate) = 1981 AND sal = (
+SELECT MIN(sal) FROM emp WHERE EXTRACT(YEAR FROM hiredate) = 1981 );
+
+5)  Display the records of employees who are earning above the average
+    salary in their own deptno.
+
+SELECT * FROM emp e WHERE sal > ( SELECT AVG(sal) FROM emp WHERE deptno
+= e.deptno );
+
+6)  Display the name, hire date, and salary for all employees who have
+    both the same salary and commission as Scott. Do not display SCOTT
+    in the result.
+
+SELECT ename, hiredate, sal FROM emp WHERE sal = ( SELECT sal FROM emp
+WHERE ename = ‘SCOTT’ ) AND comm = ( SELECT comm FROM emp WHERE ename =
+‘SCOTT’ ) AND ename <> ‘SCOTT’;
+
+7)  Display the department names of employees who have their salary
+    greater than Martin’s salary.
+
+SELECT DISTINCT d.dname FROM emp e JOIN dept d ON e.deptno = d.deptno
+WHERE e.sal > ( SELECT sal FROM emp WHERE ename = ‘MARTIN’ );
+
+8)  Display the department name that has the highest salary record.
+
+SELECT d.dname FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE e.sal
+= ( SELECT MAX(sal) FROM emp );
+
+
+1) Display all columns along with new column Discounted_Amount as 5% on the
+amount for those transactions having quantity sold is above 3 for both the
+countries.
+SELECT TrID, Pname, Qty, Amount,
+       Amount - (Amount * 0.05) AS Discounted_Amount
+FROM India
+WHERE Qty > 3
+
+UNION ALL
+
+SELECT TrID, Pname, Qty, Amount,
+       Amount - (Amount * 0.05) AS Discounted_Amount
+FROM Australia
+WHERE Qty > 3;
+
+
+2) Display product name wise number of products sold in each country along with a
+sub total of each country as shown next:
+
+SELECT Pname, COUNT(*) AS "Number of Items Sold"
+FROM India
+GROUP BY Pname
+UNION ALL
+SELECT 'India Count:', COUNT(*)
+FROM India
+UNION ALL
+SELECT Pname, COUNT(*)
+FROM Australia
+GROUP BY Pname
+UNION ALL
+SELECT 'Australia Count:', COUNT(*)
+FROM Australia;
+
+3) Display the following output:
+
+SELECT 'India' AS Country, Pname, SUM(Amount) AS "Total Bill"
+FROM India
+GROUP BY Pname
+UNION ALL
+SELECT 'Australia' AS Country, Pname, SUM(Amount) AS "Total Bill"
+FROM Australia
+GROUP BY Pname;
+
+4) Display week days transaction details for both the countries excluding the
+transactions done on 1-Jan-2019.
+SELECT 'India' AS Country, TrID, Pname, Qty, Amount, TrDate
+FROM India
+WHERE DAYNAME(TrDate) NOT IN ('Saturday','Sunday')
+AND TrDate <> '2019-01-01'
+UNION ALL
+SELECT 'Australia' AS Country, TrID, Pname, Qty, Amount, TrDate
+FROM Australia
+WHERE DAYNAME(TrDate) NOT IN ('Saturday','Sunday')
+AND TrDate <> '2019-01-01';
+
+5) Display all the transactions of India as well as Australia sorted as per date of
+purchase oldest to latest. Also display grand total of amounts country wise as the
+last 2 rows in the output.
+
+SELECT 'India' AS Country, TrID, Pname, Qty, Amount, TrDate
+FROM India
+UNION ALL
+SELECT 'Australia', TrID, Pname, Qty, Amount, TrDate
+FROM Australia
+ORDER BY TrDate;
+
+6) Display all the transaction details done in counter 3 for both the countries.
+
+SELECT 'India' AS Country, *
+FROM India
+WHERE RIGHT(TrID,1) = '3'
+
+UNION ALL
+
+SELECT 'Australia', *
+FROM Australia
+WHERE RIGHT(TrID,1) = '3';
