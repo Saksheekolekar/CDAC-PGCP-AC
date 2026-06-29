@@ -1,0 +1,51 @@
+# Build folders
+bin/
+obj/
+
+# Visual Studio
+.vs/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider
+.idea/
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+packages/
+
+# Publish output
+publish/
+
+# Test Results
+TestResults/
+
+# Entity Framework
+*.mdf
+*.ldf
+
+# Secrets
+appsettings.Development.json
+secrets.json
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Coverage reports
+coverage/
+coverage.xml
+
+# Temporary files
+*.tmp
+*.temp

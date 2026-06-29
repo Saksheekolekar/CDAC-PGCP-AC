@@ -13,5 +13,5 @@ int main()
         s[i]->accept();         // access using ->
     }
 
-    return 0;
+    return 0;  
 }
